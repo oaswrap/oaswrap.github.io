@@ -21,3 +21,6 @@ yarn-error.log*
 
 # References directory
 /references
+
+# AI relevant files
+.claude

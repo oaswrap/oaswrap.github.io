@@ -1,47 +1,58 @@
 ---
 sidebar_position: 1
+slug: /intro
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+**OASWrap** is a collection of Go libraries for building and serving OpenAPI 3.x documentation without vendor lock-in.
 
-## Getting Started
+## Libraries
 
-Get started by **creating a new site**.
+### [spec](/docs/spec/introduction)
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
+A lightweight, framework-agnostic OpenAPI 3.x specification builder. Write your API documentation in pure Go code with full type safety — no annotations, no code comments required.
 
 ```bash
-npm init docusaurus@latest my-website classic
+go get github.com/oaswrap/spec
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+- Build specs programmatically in Go
+- Works standalone or with any web framework
+- Adapter ecosystem for Chi, Echo, Gin, Fiber, net/http, and more
+- CI/CD ready for build-time spec generation
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+### [spec-ui](/docs/spec-ui/introduction)
 
-## Start your site
-
-Run the development server:
+Serve beautiful, interactive API documentation with multiple UI providers as standard Go HTTP handlers.
 
 ```bash
-cd my-website
-npm run start
+go get github.com/oaswrap/spec-ui
 ```
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+- 5 UI providers: Swagger UI, Stoplight Elements, ReDoc, Scalar, RapiDoc
+- Works with any Go HTTP router
+- CDN mode (lightweight) or embedded mode (air-gapped deployments)
+- Switch providers by changing a single import
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+## How They Work Together
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+`spec` generates your OpenAPI specification. `spec-ui` serves it as interactive documentation. You can use them independently or together:
+
+```go
+// Generate the spec
+r := spec.NewRouter(
+    option.WithTitle("My API"),
+    option.WithVersion("1.0.0"),
+)
+r.Get("/users", option.Summary("List users"), option.Response(200, new([]User)))
+r.WriteSchemaTo("openapi.yaml")
+
+// Serve the spec as interactive docs
+handler := specui.NewHandler(
+    specui.WithSpecFile("openapi.yaml"),
+    swaggerui.WithUI(),
+)
+```
+
+Framework adapters (`chiopenapi`, `ginopenapi`, etc.) combine both — automatically generating the spec from your routes and serving the documentation UI.
