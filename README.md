@@ -1,41 +1,57 @@
-# Website
+# oaswrap.github.io
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Official documentation website for the [OASWrap](https://github.com/oaswrap) Go libraries — built with [Docusaurus](https://docusaurus.io/).
 
-## Installation
+## Libraries Documented
 
-```bash
-yarn
-```
+- **[spec](https://github.com/oaswrap/spec)** — Framework-agnostic OpenAPI 3.x specification builder for Go
+- **[spec-ui](https://github.com/oaswrap/spec-ui)** — Multiple OpenAPI documentation UIs as Go HTTP handlers
+
+## Requirements
+
+- Node.js >= 20.0
 
 ## Local Development
 
 ```bash
-yarn start
+npm install
+npm start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Opens a local dev server at `http://localhost:3000`. Most changes are reflected live without restarting.
 
 ## Build
 
 ```bash
-yarn build
+npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Generates static files into the `build/` directory.
 
 ## Deployment
 
-Using SSH:
+Deployment is automated via GitHub Actions on every push to `main`. The workflow builds the site and deploys it to GitHub Pages.
 
-```bash
-USE_SSH=true yarn deploy
+To deploy manually, ensure the GitHub Pages source is set to **GitHub Actions** in the repository settings.
+
+## Project Structure
+
 ```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
+docs/
+├── intro.md                  # Ecosystem overview
+├── spec/                     # spec library documentation
+│   ├── adapters/             # Framework adapter guides
+│   └── ...
+└── spec-ui/                  # spec-ui library documentation
+    ├── providers/             # UI provider guides
+    └── ...
+src/
+├── pages/                    # Landing page
+├── components/               # React components
+└── css/                      # Global styles
+static/
+└── img/                      # Logo and favicon
+.github/
+└── workflows/
+    └── deploy.yml            # GitHub Actions deployment
 ```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
