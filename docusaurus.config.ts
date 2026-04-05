@@ -37,7 +37,12 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/oaswrap/oaswrap.github.io/tree/main/',
         },
-        blog: false,
+        blog: {
+            showReadingTime: true,
+            feedOptions: {
+              type: ['rss', 'atom'],
+            },
+          },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -61,6 +66,11 @@ const config: Config = {
           sidebarId: 'docsSidebar',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
         },
         {
           href: 'https://github.com/oaswrap',

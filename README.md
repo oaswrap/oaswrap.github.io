@@ -37,21 +37,22 @@ To deploy manually, ensure the GitHub Pages source is set to **GitHub Actions** 
 ## Project Structure
 
 ```
+blog/                     # Blog posts (release notes, articles)
 docs/
-├── intro.md                  # Ecosystem overview
-├── spec/                     # spec library documentation
-│   ├── adapters/             # Framework adapter guides
+├── intro.md              # Ecosystem overview
+├── spec/                 # spec library documentation
+│   ├── adapters/         # Framework adapter guides
 │   └── ...
-└── spec-ui/                  # spec-ui library documentation
-    ├── providers/             # UI provider guides
+└── spec-ui/              # spec-ui library documentation
+    ├── providers/        # UI provider guides
     └── ...
 src/
-├── pages/                    # Landing page
-├── components/               # React components
-└── css/                      # Global styles
+├── pages/                # Landing page
+├── components/           # React components
+└── css/                  # Global styles
 static/
-└── img/                      # Logo and favicon
+└── img/                  # Logo and favicon
 .github/
 └── workflows/
-    └── deploy.yml            # GitHub Actions deployment
+    └── deploy.yml        # GitHub Actions deployment
 ```
