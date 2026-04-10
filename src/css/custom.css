@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap');
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -15,6 +17,17 @@
   --ifm-color-primary-lightest: #45d0f3;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Landing page design tokens */
+  --lp-bg-primary: #ffffff;
+  --lp-bg-secondary: #f8f8f7;
+  --lp-bg-tertiary: #f2f1ef;
+  --lp-text-primary: #1a1a18;
+  --lp-text-secondary: #6b6b68;
+  --lp-border-light: rgba(0, 0, 0, 0.08);
+  --lp-border-mid: rgba(0, 0, 0, 0.14);
+  --lp-cyan: #0891b2;
+  --lp-cyan-light: #e0f2fe;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +40,26 @@
   --ifm-color-primary-lighter: #20c5ef;
   --ifm-color-primary-lightest: #4dd3f5;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Landing page dark mode */
+  --lp-bg-primary: #1a1a18;
+  --lp-bg-secondary: #2d2d2a;
+  --lp-bg-tertiary: #0f0f0d;
+  --lp-text-primary: #ffffff;
+  --lp-text-secondary: #a8a8a3;
+  --lp-border-light: rgba(255, 255, 255, 0.08);
+  --lp-border-mid: rgba(255, 255, 255, 0.14);
+  --lp-cyan: #06b6d4;
+  --lp-cyan-light: #0d2838;
+}
+
+/* Navbar version badge */
+.nav-version-badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 0.5px solid var(--lp-border-mid);
+  color: var(--lp-text-secondary);
+  background: var(--lp-bg-secondary);
+  font-family: 'DM Mono', monospace;
 }

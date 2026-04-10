@@ -1,0 +1,10 @@
+# OASWrap robots.txt
+User-agent: *
+Allow: /
+Disallow: /build/
+
+# Specific rules for better crawling
+Crawl-delay: 1
+
+# Reference to sitemap
+Sitemap: https://oaswrap.github.io/sitemap.xml

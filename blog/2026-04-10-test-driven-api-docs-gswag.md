@@ -9,7 +9,7 @@ Most Go projects treat API documentation as a separate task from testing. You wr
 
 `gswag` takes a different approach: your OpenAPI spec is generated as a side-effect of running your Ginkgo integration tests. If the test passes, the spec reflects what your API actually does.
 
-<!-- truncate -->
+{/* truncate */}
 
 ## The core idea
 

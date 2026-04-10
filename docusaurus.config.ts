@@ -7,8 +7,82 @@ const config: Config = {
   tagline: 'Framework-agnostic OpenAPI documentation for Go',
   favicon: 'img/favicon.ico',
 
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'description',
+        content: 'Build OpenAPI 3.x specs in pure Go with full type safety. Test-driven, framework-agnostic documentation.',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:title',
+        content: 'OASWrap — Framework-agnostic OpenAPI docs for Go',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:description',
+        content: 'Build OpenAPI 3.x specs in pure Go with full type safety. Test-driven, framework-agnostic documentation.',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:url',
+        content: 'https://oaswrap.github.io',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:type',
+        content: 'website',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:title',
+        content: 'OASWrap — Framework-agnostic OpenAPI docs for Go',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'twitter:description',
+        content: 'Build OpenAPI 3.x specs in pure Go. Test-driven, no annotations, no drift.',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'canonical',
+        href: 'https://oaswrap.github.io',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'keywords',
+        content: 'OpenAPI, Go, API documentation, spec generation, framework-agnostic, test-driven',
+      },
+    },
+  ],
+
   future: {
     v4: true,
+    faster: true,
   },
 
   url: 'https://oaswrap.github.io',

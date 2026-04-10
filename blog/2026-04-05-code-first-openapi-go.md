@@ -10,7 +10,7 @@ If you've maintained an OpenAPI spec by hand, you know the pain. The spec drifts
 
 In the Go ecosystem, there are a few notable tools for this: **swag** (the annotation-based approach that many teams still use today), and a newer generation of code-first libraries — **oaswrap/spec**, **Huma**, and **Fuego**. They all solve the same problem, but with meaningfully different philosophies. This post walks through each one and helps you figure out which fits your situation.
 
-<!-- truncate -->
+{/* truncate */}
 
 ## Two generations of API documentation
 

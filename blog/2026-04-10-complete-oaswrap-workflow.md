@@ -9,7 +9,7 @@ The three OASWrap libraries each solve one piece of the API documentation proble
 
 This post walks through a complete workflow: generate the spec with `gswag` during CI, embed it into your binary, and serve it with `spec-ui`.
 
-<!-- truncate -->
+{/* truncate */}
 
 ## The three libraries
 
