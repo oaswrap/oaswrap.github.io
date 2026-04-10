@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
@@ -78,6 +78,13 @@ const config: Config = {
         content: 'OpenAPI, Go, API documentation, spec generation, framework-agnostic, test-driven',
       },
     },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'google-site-verification',
+        content: 'xxmtmDLoP07qn31dFbyUXtAqXer8hzDnbcjLR37KC1E',
+      },
+    },
   ],
 
   future: {
@@ -112,11 +119,11 @@ const config: Config = {
           editUrl: 'https://github.com/oaswrap/oaswrap.github.io/tree/main/',
         },
         blog: {
-            showReadingTime: true,
-            feedOptions: {
-              type: ['rss', 'atom'],
-            },
+          showReadingTime: true,
+          feedOptions: {
+            type: ['rss', 'atom'],
           },
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
