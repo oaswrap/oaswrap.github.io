@@ -2,7 +2,7 @@
 slug: code-first-openapi-go
 title: "Code-First OpenAPI in Go: Comparing spec, Huma, Fuego, and swag"
 date: 2026-04-05
-authors: []
+authors: [ahmad_faiz]
 tags: [openapi, go, comparison]
 ---
 

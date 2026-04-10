@@ -93,6 +93,10 @@ const config: Config = {
               label: 'spec-ui',
               href: 'https://github.com/oaswrap/spec-ui',
             },
+            {
+              label: 'gswag',
+              href: 'https://github.com/oaswrap/gswag',
+            },
           ],
         },
         {
@@ -105,6 +109,10 @@ const config: Config = {
             {
               label: 'pkg.go.dev/spec-ui',
               href: 'https://pkg.go.dev/github.com/oaswrap/spec-ui',
+            },
+            {
+              label: 'pkg.go.dev/gswag',
+              href: 'https://pkg.go.dev/github.com/oaswrap/gswag',
             },
           ],
         },

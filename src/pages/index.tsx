@@ -14,11 +14,22 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Framework Agnostic',
+    title: 'Code-First Spec Generation',
     description: (
       <>
-        Works with any Go web framework — Chi, Echo, Gin, Fiber, net/http, and
-        more. Or use it standalone for build-time spec generation.
+        Build OpenAPI 3.x specs in pure Go with full type safety — no
+        annotations, no code comments. Works with any framework or standalone
+        for CI/CD pipelines.
+      </>
+    ),
+  },
+  {
+    title: 'Test-Driven Documentation',
+    description: (
+      <>
+        Generate specs as a side-effect of your Ginkgo integration tests.
+        Real HTTP requests mean the spec always reflects what your API actually
+        does — no drift.
       </>
     ),
   },
@@ -26,17 +37,9 @@ const FeatureList: FeatureItem[] = [
     title: 'Multiple UI Providers',
     description: (
       <>
-        Serve interactive API documentation with Swagger UI, Stoplight Elements,
-        ReDoc, Scalar, or RapiDoc. Switch providers by changing a single import.
-      </>
-    ),
-  },
-  {
-    title: 'CI/CD Ready',
-    description: (
-      <>
-        Generate OpenAPI 3.x specs at build time from pure Go code with full
-        type safety. No annotations, no code comments — just Go.
+        Serve interactive docs with Swagger UI, Stoplight Elements, ReDoc,
+        Scalar, or RapiDoc. Switch providers by changing a single import.
+        CDN or fully embedded for air-gapped deployments.
       </>
     ),
   },
@@ -67,6 +70,11 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/docs/spec/introduction">
             spec — OpenAPI Builder
+          </Link>
+          <Link
+            className="button button--outline button--secondary button--lg"
+            to="/docs/gswag/introduction">
+            gswag — Test-Driven Docs
           </Link>
           <Link
             className="button button--outline button--secondary button--lg"
