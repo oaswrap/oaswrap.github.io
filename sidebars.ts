@@ -35,6 +35,21 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'gswag',
+      link: {type: 'doc', id: 'gswag/introduction'},
+      items: [
+        'gswag/introduction',
+        'gswag/installation',
+        'gswag/quick-start',
+        'gswag/dsl-reference',
+        'gswag/configuration',
+        'gswag/matchers',
+        'gswag/validation',
+        'gswag/parallel',
+      ],
+    },
+    {
+      type: 'category',
       label: 'spec-ui',
       link: {type: 'doc', id: 'spec-ui/introduction'},
       items: [

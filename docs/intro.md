@@ -22,6 +22,19 @@ go get github.com/oaswrap/spec
 - Adapter ecosystem for Chi, Echo, Gin, Fiber, net/http, and more
 - CI/CD ready for build-time spec generation
 
+### [gswag](/docs/gswag/introduction)
+
+Generate OpenAPI 3.0 specs as a side-effect of running [Ginkgo v2](https://github.com/onsi/ginkgo) integration tests. Inspired by rswag — define API docs alongside real, executable tests using a nested DSL.
+
+```bash
+go get github.com/oaswrap/gswag
+```
+
+- Spec emerges from real HTTP requests, not annotations
+- Captures live request/response examples automatically
+- Parallel Ginkgo suite support (`ginkgo -p`)
+- Built-in structural and JSON Schema validation
+
 ### [spec-ui](/docs/spec-ui/introduction)
 
 Serve beautiful, interactive API documentation with multiple UI providers as standard Go HTTP handlers.
@@ -37,7 +50,7 @@ go get github.com/oaswrap/spec-ui
 
 ## How They Work Together
 
-`spec` generates your OpenAPI specification. `spec-ui` serves it as interactive documentation. You can use them independently or together:
+`spec` generates your OpenAPI specification at build time. `gswag` generates it as a side-effect of your Ginkgo tests. `spec-ui` serves either output as interactive documentation. You can use them independently or together:
 
 ```go
 // Generate the spec
