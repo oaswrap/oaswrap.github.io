@@ -15,7 +15,7 @@ npm run clear      # Clear Docusaurus cache
 
 ## Architecture
 
-This is a [Docusaurus 3.x](https://docusaurus.io/) documentation site for the OASWrap Go libraries (`spec` and `spec-ui`).
+This is a [Docusaurus 3.x](https://docusaurus.io/) documentation site for the OASWrap Go libraries (`spec`, `spec-ui`, and `gswag`).
 
 **Key config files:**
 - `docusaurus.config.ts` — site metadata, navbar, footer, syntax highlighting (Go, bash, yaml, json)
@@ -24,6 +24,7 @@ This is a [Docusaurus 3.x](https://docusaurus.io/) documentation site for the OA
 **Content lives in `docs/`**, organized into two sections mirroring the Go libraries:
 - `docs/spec/` — OpenAPI spec builder docs, with an `adapters/` subcategory (chi, echo, gin, fiber, net/http, gorilla/mux)
 - `docs/spec-ui/` — UI handler docs, with a `providers/` subcategory (swagger-ui, stoplight, redoc, scalar, rapidoc)
+- `docs/gswag/` — gswag testing DSL docs
 - `docs/intro.md` — ecosystem overview landing page
 
 **Custom React components** are in `src/components/` and the landing page is in `src/pages/`. Global CSS is in `src/css/custom.css`.

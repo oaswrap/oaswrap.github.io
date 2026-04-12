@@ -6,6 +6,7 @@ Official documentation website for the [OASWrap](https://github.com/oaswrap) Go 
 
 - **[spec](https://github.com/oaswrap/spec)** — Framework-agnostic OpenAPI 3.x specification builder for Go
 - **[spec-ui](https://github.com/oaswrap/spec-ui)** — Multiple OpenAPI documentation UIs as Go HTTP handlers
+- **[gswag](https://github.com/oaswrap/gswag)** — Go testing DSL for OpenAPI-driven API specs and validation
 
 ## Requirements
 
@@ -40,6 +41,8 @@ To deploy manually, ensure the GitHub Pages source is set to **GitHub Actions** 
 blog/                     # Blog posts (release notes, articles)
 docs/
 ├── intro.md              # Ecosystem overview
+├── gswag/                # gswag library documentation
+│   ├── ...
 ├── spec/                 # spec library documentation
 │   ├── adapters/         # Framework adapter guides
 │   └── ...
