@@ -8,27 +8,9 @@ When you run a Ginkgo suite with `ginkgo -p`, Ginkgo spawns multiple OS processe
 
 Each process writes a **partial spec** file. Process 1 then merges all partial files into the final spec once every other process has finished.
 
-## Option A — helper (recommended)
+## Manual SynchronizedAfterSuite
 
-`RegisterParallelSuiteHandlers` handles everything internally using Ginkgo's `SynchronizedAfterSuite`, which guarantees that node 1 only merges after all other nodes have written their partial files:
-
-```go
-func TestAPI(t *testing.T) {
-    gswag.RegisterParallelSuiteHandlers(&gswag.Config{
-        Title:      "My API",
-        Version:    "1.0.0",
-        OutputPath: "./docs/openapi.yaml",
-    }, httptest.NewServer(NewRouter()), "./tmp/gswag")
-    RegisterFailHandler(Fail)
-    RunSpecs(t, "API Suite")
-}
-```
-
-The third argument is the **partial directory** — a temporary directory shared by all nodes. gswag creates it automatically if it does not exist.
-
-## Option B — manual SynchronizedAfterSuite
-
-For more control, wire the parallel lifecycle manually:
+Wire the parallel lifecycle using Ginkgo's `SynchronizedAfterSuite`, which guarantees that node 1 only merges after all other nodes have written their partial files:
 
 ```go
 var _ = SynchronizedAfterSuite(func() {

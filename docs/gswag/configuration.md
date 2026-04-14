@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Configuration
 
-Pass a `*Config` to `Init` in your `BeforeSuite` (or to `RegisterSuiteHandlers`).
+Pass a `*Config` to `Init` in your `BeforeSuite`.
 
 ## Full reference
 

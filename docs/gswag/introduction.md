@@ -54,4 +54,4 @@ Use [`oaswrap/spec`](/docs/spec/introduction) instead when you:
 
 ## Status
 
-The library is in active development. While core functionality is solid, consider it **beta software**. Thorough testing is recommended before production use.
+The library is in active development. While core functionality is solid and is being actively used, consider it **early production software**. Thorough testing is recommended before production use.

@@ -45,21 +45,7 @@ var _ = AfterSuite(func() {
 })
 ```
 
-### Shorthand for single-process suites
 
-`RegisterSuiteHandlers` combines `Init`, `SetTestServer`, and `WriteSpec` into one call:
-
-```go
-func TestAPI(t *testing.T) {
-    gswag.RegisterSuiteHandlers(&gswag.Config{
-        Title:      "My API",
-        Version:    "1.0.0",
-        OutputPath: "./docs/openapi.yaml",
-    }, httptest.NewServer(NewRouter()))
-    RegisterFailHandler(Fail)
-    RunSpecs(t, "API Suite")
-}
-```
 
 ## 2. Write spec tests
 

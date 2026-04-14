@@ -109,6 +109,14 @@ option.WithSecurity("oauth2", option.SecurityOAuth2(
 ))
 ```
 
+## Path Handling
+
+```go
+// Remove trailing slashes from all operation paths in the spec.
+// "/pet/" becomes "/pet", "/" is left unchanged.
+option.WithStripTrailingSlash()
+```
+
 ## All OpenAPI Options
 
 | Option | Description |
@@ -123,3 +131,4 @@ option.WithSecurity("oauth2", option.SecurityOAuth2(
 | `WithTags(...tags)` | Define global tags |
 | `WithServer(url, ...opts)` | Add a server |
 | `WithSecurity(name, opt)` | Define a security scheme |
+| `WithStripTrailingSlash()` | Remove trailing slashes from operation paths |
