@@ -6,6 +6,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'spec',
+      className: 'sidebar-lib sidebar-lib--spec',
       link: {type: 'doc', id: 'spec/introduction'},
       items: [
         'spec/introduction',
@@ -37,6 +38,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'gswag',
+      className: 'sidebar-lib sidebar-lib--gswag',
       link: {type: 'doc', id: 'gswag/introduction'},
       items: [
         'gswag/introduction',
@@ -52,6 +54,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'spec-ui',
+      className: 'sidebar-lib sidebar-lib--specui',
       link: {type: 'doc', id: 'spec-ui/introduction'},
       items: [
         'spec-ui/introduction',

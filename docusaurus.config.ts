@@ -110,6 +110,18 @@ const config: Config = {
     locales: ['en'],
   },
 
+  plugins: [
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        language: ['en'],
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
@@ -145,15 +157,33 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'docsSidebar',
-          position: 'left',
+          type: 'dropdown',
           label: 'Docs',
+          position: 'left',
+          items: [
+            {
+              label: 'spec — OpenAPI builder',
+              to: '/docs/spec/introduction',
+            },
+            {
+              label: 'gswag — test-driven docs',
+              to: '/docs/gswag/introduction',
+            },
+            {
+              label: 'spec-ui — documentation UIs',
+              to: '/docs/spec-ui/introduction',
+            },
+          ],
         },
         {
           to: '/blog',
           label: 'Blog',
           position: 'left',
+        },
+        {
+          type: 'html',
+          position: 'right',
+          value: '<span class="nav-version-badge">spec v0.5.0</span>',
         },
         {
           href: 'https://github.com/oaswrap',
