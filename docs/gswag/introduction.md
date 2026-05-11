@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-`oaswrap/gswag` generates OpenAPI 3.0 specifications as a side-effect of running [Ginkgo v2](https://github.com/onsi/ginkgo) integration tests. Instead of writing annotations or maintaining a separate spec file, you describe your API using a nested DSL alongside real, executable tests. The spec is written to disk automatically when the test suite finishes.
+`oaswrap/gswag` generates OpenAPI 3.0, 3.1, or 3.2 specifications as a side-effect of running [Ginkgo v2](https://github.com/onsi/ginkgo) integration tests. Instead of writing annotations or maintaining a separate spec file, you describe your API using a nested DSL alongside real, executable tests. The spec is written to disk automatically when the test suite finishes.
 
 Inspired by [rswag](https://github.com/rswag/rswag) for Ruby on Rails.
 

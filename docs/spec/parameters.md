@@ -56,6 +56,16 @@ r.Get("/users",
 )
 ```
 
+## OpenAPI 3.2 Querystring Parameters
+
+For OpenAPI `3.2.0`, you can model whole-query-string parameters with the `querystring` tag:
+
+```go
+type SearchRequest struct {
+    Raw string `querystring:"q" mediaType:"application/x-www-form-urlencoded"`
+}
+```
+
 ## Header Parameters
 
 Use the `header` struct tag:
@@ -118,7 +128,7 @@ Common schema tags:
 | `default:"..."` | Default value |
 | `example:"..."` | Example value |
 
-For the complete list of supported tags, see [swaggest/jsonschema-go](https://github.com/swaggest/jsonschema-go#field-tags).
+For the complete list of supported reflection tags, see the `oaswrap/spec` [Reflection Tags reference](https://github.com/oaswrap/spec#reflection-tags).
 
 ## Generic Response Types
 

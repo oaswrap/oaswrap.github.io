@@ -87,10 +87,10 @@ protected.Get("/profile", option.Summary("Get profile"))
 
 ## Path Parameters
 
-Chi uses `:param` style. The adapter automatically converts these to `{param}` for OpenAPI:
+Chi and OpenAPI both use `{param}` path templates:
 
 ```go
-api.Get("/users/{id}", ...)  // use {id} in spec — chi maps it from :id
+api.Get("/users/{id}", ...)
 ```
 
 Define parameters in your request struct:

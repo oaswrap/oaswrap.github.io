@@ -27,6 +27,7 @@ const sidebars: SidebarsConfig = {
             'spec/adapters/echo',
             'spec/adapters/gin',
             'spec/adapters/fiber',
+            'spec/adapters/iris',
             'spec/adapters/http',
             'spec/adapters/mux',
           ],

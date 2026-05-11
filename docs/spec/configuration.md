@@ -4,55 +4,52 @@ sidebar_position: 4
 
 # Configuration
 
-The `option` package provides all configuration options for the OpenAPI specification. Pass options to `spec.NewRouter()` or `spec.NewGenerator()`.
+The `option` package provides root OpenAPI options for `spec.NewRouter()` and `spec.NewGenerator()`.
 
 ## Basic Information
 
 ```go
-import "github.com/oaswrap/spec/option"
+import (
+    "github.com/oaswrap/spec"
+    "github.com/oaswrap/spec/openapi"
+    "github.com/oaswrap/spec/option"
+)
 
 r := spec.NewRouter(
-    option.WithOpenAPIVersion("3.0.3"), // Default: "3.0.3"
+    option.WithOpenAPIVersion(openapi.Version312), // default: openapi.Version312
     option.WithTitle("My API"),
+    option.WithInfoSummary("Public API"),
     option.WithDescription("A comprehensive API for my application"),
     option.WithVersion("1.2.3"),
 )
 ```
 
-## Contact and License
+## Contact, License, and External Docs
 
 ```go
-import "github.com/swaggest/openapi-go/openapi3"
-
 r := spec.NewRouter(
-    option.WithContact(openapi3.Contact{
+    option.WithContact(openapi.Contact{
         Name:  "Support Team",
         URL:   "https://support.example.com",
         Email: "support@example.com",
     }),
-    option.WithLicense(openapi3.License{
+    option.WithLicense(openapi.License{
         Name: "MIT License",
         URL:  "https://opensource.org/licenses/MIT",
     }),
+    option.WithTermsOfService("https://example.com/terms"),
     option.WithExternalDocs("https://docs.example.com", "Full Documentation"),
 )
 ```
 
 ## Tags
 
-Tags group operations in the generated documentation:
-
 ```go
 r := spec.NewRouter(
-    option.WithTags(
-        openapi3.Tag{
-            Name:        "User Management",
-            Description: "Operations related to user management",
-        },
-        openapi3.Tag{
-            Name:        "Authentication",
-            Description: "Authentication related operations",
-        },
+    option.WithTag("users", option.TagDescription("User operations")),
+    option.WithTag("admin",
+        option.TagDescription("Admin operations"),
+        option.TagExternalDocs("https://example.com/admin-docs"),
     ),
 )
 ```
@@ -60,18 +57,11 @@ r := spec.NewRouter(
 ## Servers
 
 ```go
-// Simple server
 option.WithServer("https://api.example.com")
 
-// Server with description
-option.WithServer("https://api.example.com",
-    option.ServerDescription("Production Server"),
-)
-
-// Server with variables
 option.WithServer("https://api.example.com/{version}",
     option.ServerDescription("Versioned Server"),
-    option.ServerVariables(map[string]openapi3.ServerVariable{
+    option.ServerVariables(map[string]openapi.ServerVariable{
         "version": {
             Default:     "v1",
             Enum:        []string{"v1", "v2"},
@@ -83,30 +73,19 @@ option.WithServer("https://api.example.com/{version}",
 
 ## Security Schemes
 
-Define security schemes at the router level, then apply them to routes or groups.
-
 ```go
-// Bearer token (JWT)
-option.WithSecurity("bearerAuth", option.SecurityHTTPBearer("Bearer"))
-
-// API Key in header
-option.WithSecurity("apiKey", option.SecurityAPIKey("X-API-Key", "header"))
-
-// API Key in query parameter
-option.WithSecurity("apiKeyQuery", option.SecurityAPIKey("api_key", "query"))
-
-// OAuth2
-option.WithSecurity("oauth2", option.SecurityOAuth2(
-    openapi3.OAuthFlows{
-        Implicit: &openapi3.OAuthFlowsImplicit{
-            AuthorizationURL: "https://auth.example.com/authorize",
-            Scopes: map[string]string{
-                "read":  "Read access",
-                "write": "Write access",
-            },
-        },
-    },
+option.WithSecurity("bearerAuth", option.SecurityHTTPBearer("bearer"))
+option.WithSecurity("apiKey", option.SecurityAPIKey("X-API-Key", openapi.SecuritySchemeAPIKeyInHeader))
+option.WithSecurity("mtls", option.SecurityMutualTLS())
+option.WithSecurity("oidc", option.SecurityOpenIDConnect("https://auth.example.com/.well-known/openid-configuration"))
+option.WithSecurity("oauth2", option.SecurityOAuth2AuthorizationCode(
+    "https://auth.example.com/oauth/authorize",
+    "https://auth.example.com/oauth/token",
+    map[string]string{"read": "Read access"},
 ))
+
+// Optional global requirement
+option.WithGlobalSecurity("bearerAuth")
 ```
 
 ## Path Handling
@@ -121,14 +100,26 @@ option.WithStripTrailingSlash()
 
 | Option | Description |
 |--------|-------------|
-| `WithOpenAPIVersion(v)` | Set OpenAPI version (default: `"3.0.3"`) |
-| `WithTitle(t)` | Set API title |
-| `WithDescription(d)` | Set API description |
-| `WithVersion(v)` | Set API version |
+| `WithOpenAPIVersion(v)` | Set OpenAPI version (default: `openapi.Version312`) |
+| `WithSelf(uri)` | Set OpenAPI 3.2 `$self` |
+| `WithJSONSchemaDialect(uri)` | Set root `jsonSchemaDialect` |
+| `WithTitle(t)` | Set `info.title` |
+| `WithInfoSummary(s)` | Set `info.summary` |
+| `WithDescription(d)` | Set `info.description` |
+| `WithVersion(v)` | Set `info.version` |
 | `WithContact(c)` | Set contact information |
 | `WithLicense(l)` | Set license information |
-| `WithExternalDocs(url, desc)` | Set external documentation link |
-| `WithTags(...tags)` | Define global tags |
+| `WithTermsOfService(url)` | Set terms of service URL |
+| `WithExternalDocs(url, desc...)` | Set external documentation |
+| `WithTag(name, ...opts)` / `WithTags(...tags)` | Define global tags |
 | `WithServer(url, ...opts)` | Add a server |
-| `WithSecurity(name, opt)` | Define a security scheme |
+| `WithSecurity(name, ...opts)` | Define a reusable security scheme |
+| `WithGlobalSecurity(name, scopes...)` | Add global security requirement |
+| `WithReflectorConfig(...opts)` | Customize reflection behavior |
 | `WithStripTrailingSlash()` | Remove trailing slashes from operation paths |
+| `WithPathParser(parser)` | Convert framework path syntax to OpenAPI path templates |
+| `WithDocument(fn)` | Apply low-level document customization before serialization |
+| `WithComponentSchema/Response/Parameter/...` | Register reusable components directly |
+| `WithDisableDocs()` | Disable adapter docs endpoints |
+| `WithDocsPath(path)` | Set adapter docs UI path |
+| `WithSpecPath(path)` | Set adapter spec endpoint path |

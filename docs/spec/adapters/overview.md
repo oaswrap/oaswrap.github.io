@@ -21,8 +21,8 @@ Framework adapters provide seamless integration with popular Go web frameworks. 
 | [Gin](/docs/spec/adapters/gin) | `github.com/oaswrap/spec/adapter/ginopenapi` | Fast HTTP web framework with zero allocation router |
 | [Fiber v2](/docs/spec/adapters/fiber) | `github.com/oaswrap/spec/adapter/fiberopenapi` | Express-inspired framework built on Fasthttp |
 | [Fiber v3](/docs/spec/adapters/fiber) | `github.com/oaswrap/spec/adapter/fiberv3openapi` | Fiber v3 with updated Ctx interface and binding API |
+| [Iris](/docs/spec/adapters/iris) | `github.com/oaswrap/spec/adapter/irisopenapi` | Full-featured web framework with MVC support |
 | [net/http](/docs/spec/adapters/http) | `github.com/oaswrap/spec/adapter/httpopenapi` | Go standard library HTTP package |
-| [HTTPRouter](/docs/spec/adapters/mux) | `github.com/oaswrap/spec/adapter/httprouteropenapi` | High performance HTTP request router |
 | [Gorilla Mux](/docs/spec/adapters/mux) | `github.com/oaswrap/spec/adapter/muxopenapi` | Powerful HTTP router and URL matcher |
 
 ## How Adapters Work
@@ -41,7 +41,7 @@ If you want to manage the docs routes yourself:
 ```go
 api := chiopenapi.NewRouter(r,
     option.WithTitle("My API"),
-    option.DisableDocs(),
+    option.WithDisableDocs(),
 )
 ```
 
@@ -49,7 +49,7 @@ api := chiopenapi.NewRouter(r,
 
 All adapters come with sensible defaults:
 - Title: "API Documentation"
-- OpenAPI version: 3.0.3
+- OpenAPI version: 3.1.2
 - Docs path: `/docs`
 - Spec path: `/docs/openapi.yaml`
 - UI provider: Stoplight Elements

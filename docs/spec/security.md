@@ -4,69 +4,35 @@ sidebar_position: 7
 
 # Security
 
-Define security schemes at the router level and apply them to individual routes or groups.
+Define security schemes at the router level and apply them to routes or groups.
 
 ## Defining Security Schemes
 
-Security schemes are defined when creating the router using `option.WithSecurity()`:
-
 ```go
+import "github.com/oaswrap/spec/openapi"
+
 r := spec.NewRouter(
     option.WithTitle("My API"),
     option.WithVersion("1.0.0"),
 
-    // Bearer token (e.g. JWT)
-    option.WithSecurity("bearerAuth", option.SecurityHTTPBearer("Bearer")),
+    option.WithSecurity("bearerAuth", option.SecurityHTTPBearer("bearer")),
+    option.WithSecurity("basicAuth", option.SecurityHTTPBearer("basic")),
+    option.WithSecurity("apiKey", option.SecurityAPIKey("X-API-Key", openapi.SecuritySchemeAPIKeyInHeader)),
+    option.WithSecurity("mtls", option.SecurityMutualTLS()),
+    option.WithSecurity("oidc", option.SecurityOpenIDConnect("https://auth.example.com/.well-known/openid-configuration")),
 
-    // API Key in header
-    option.WithSecurity("apiKey", option.SecurityAPIKey("X-API-Key", "header")),
-
-    // API Key in query
-    option.WithSecurity("apiKeyQuery", option.SecurityAPIKey("api_key", "query")),
-
-    // Basic auth
-    option.WithSecurity("basicAuth", option.SecurityHTTPBearer("Basic")),
+    option.WithSecurity("oauth2", option.SecurityOAuth2AuthorizationCode(
+        "https://auth.example.com/oauth/authorize",
+        "https://auth.example.com/oauth/token",
+        map[string]string{
+            "read:users":  "Read user data",
+            "write:users": "Write user data",
+        },
+    )),
 )
 ```
 
-## OAuth2
-
-```go
-import "github.com/swaggest/openapi-go/openapi3"
-
-option.WithSecurity("oauth2", option.SecurityOAuth2(
-    openapi3.OAuthFlows{
-        // Authorization Code flow
-        AuthorizationCode: &openapi3.OAuthFlowsAuthorizationCode{
-            AuthorizationURL: "https://auth.example.com/authorize",
-            TokenURL:         "https://auth.example.com/token",
-            Scopes: map[string]string{
-                "read:users":  "Read user data",
-                "write:users": "Write user data",
-            },
-        },
-        // Implicit flow
-        Implicit: &openapi3.OAuthFlowsImplicit{
-            AuthorizationURL: "https://auth.example.com/authorize",
-            Scopes: map[string]string{
-                "read":  "Read access",
-                "write": "Write access",
-            },
-        },
-        // Client Credentials flow
-        ClientCredentials: &openapi3.OAuthFlowsClientCredentials{
-            TokenURL: "https://auth.example.com/token",
-            Scopes: map[string]string{
-                "admin": "Admin access",
-            },
-        },
-    },
-))
-```
-
 ## Applying Security to Routes
-
-Apply a defined security scheme to a specific route:
 
 ```go
 r.Get("/users/{id}",
@@ -79,25 +45,17 @@ r.Get("/users/{id}",
 
 ## Applying Security to Groups
 
-Apply security to all routes in a group at once:
-
 ```go
-// All routes in this group require bearerAuth
 protected := r.Group("/api",
     option.GroupSecurity("bearerAuth"),
 )
 protected.Get("/profile", option.Summary("Get profile"))
 protected.Put("/profile", option.Summary("Update profile"))
-
-// Multiple security schemes on a group
-adminGroup := r.Group("/admin",
-    option.GroupSecurity("bearerAuth", "apiKey"),
-)
 ```
 
 ## Multiple Security Schemes
 
-When multiple security schemes are applied, the generated spec treats them as alternatives (OR logic — any one is sufficient):
+Multiple `option.Security(...)` entries are treated as alternatives (OR logic in OpenAPI):
 
 ```go
 r.Get("/data",
@@ -110,6 +68,13 @@ r.Get("/data",
 
 | Option | Description |
 |--------|-------------|
-| `SecurityHTTPBearer(scheme)` | HTTP bearer token (e.g., `"Bearer"` for JWT) |
-| `SecurityAPIKey(name, in)` | API Key; `in` is `"header"`, `"query"`, or `"cookie"` |
-| `SecurityOAuth2(flows)` | OAuth2 with one or more flows |
+| `SecurityHTTPBearer(scheme, bearerFormat...)` | HTTP auth schemes such as `bearer` and `basic` |
+| `SecurityAPIKey(name, in)` | API key auth (`header`, `query`, `cookie`) |
+| `SecurityOAuth2(flows)` | OAuth2 security with explicit flows |
+| `SecurityOAuth2Implicit(...)` | OAuth2 implicit flow helper |
+| `SecurityOAuth2Password(...)` | OAuth2 password flow helper |
+| `SecurityOAuth2ClientCredentials(...)` | OAuth2 client credentials flow helper |
+| `SecurityOAuth2AuthorizationCode(...)` | OAuth2 authorization code flow helper |
+| `SecurityOAuth2DeviceAuthorization(...)` | OAuth2 device authorization flow helper (OpenAPI 3.2) |
+| `SecurityOpenIDConnect(url)` | OpenID Connect scheme |
+| `SecurityMutualTLS()` | Mutual TLS scheme |

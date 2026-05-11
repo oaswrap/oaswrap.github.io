@@ -39,7 +39,12 @@ Define security schemes using `option.WithSecurity()` when creating the router, 
 
 **Q: Does it support OpenAPI 3.1?**
 
-Yes. Set `option.WithOpenAPIVersion("3.1.0")` when creating the router.
+Yes. `oaswrap/spec` supports OpenAPI `3.0.x`, `3.1.x`, and `3.2.0`.
+
+```go
+option.WithOpenAPIVersion(openapi.Version312) // default
+option.WithOpenAPIVersion(openapi.Version320) // enable 3.2 features
+```
 
 ---
 

@@ -4,12 +4,13 @@ sidebar_position: 1
 
 # Introduction
 
-`oaswrap/spec` is a lightweight, framework-agnostic OpenAPI 3.x specification builder for Go that gives you complete control over your API documentation without vendor lock-in.
+`oaswrap/spec` is a code-first, framework-agnostic OpenAPI 3.x specification builder for Go that gives you full control over API documentation without annotations.
 
 ## Why oaswrap/spec?
 
-- **Framework Agnostic** — Works with any Go web framework or as a standalone tool
-- **Zero Dependencies** — Powered by [`swaggest/openapi-go`](https://github.com/swaggest/openapi-go) with minimal overhead
+- **Native OpenAPI Builder** — Paths, operations, components, validation, and reflection are implemented in `oaswrap/spec`
+- **Framework Agnostic** — Works standalone for static generation or with adapters for common Go frameworks
+- **Version-Aware Output** — Defaults to OpenAPI `3.1.2`, with support for `3.0.x` and `3.2.0`
 - **Programmatic Control** — Build specs in pure Go code with full type safety
 - **Adapter Ecosystem** — Seamless integration with popular frameworks via dedicated adapters
 - **CI/CD Ready** — Generate specs at build time for documentation pipelines

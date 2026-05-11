@@ -22,8 +22,27 @@ r.Head("/users", option.Summary("Check users endpoint"))
 r.Options("/users", option.Summary("Options for users"))
 r.Trace("/users", option.Summary("Trace users"))
 
+// OpenAPI 3.2 QUERY method
+r.Query("/users", option.Summary("Query users"))
+
 // Custom method
 r.Add("PURGE", "/cache/{key}", option.Summary("Purge cache key"))
+```
+
+## Webhooks
+
+Webhooks are supported on OpenAPI 3.1.x and 3.2.0:
+
+```go
+r.Webhook("user.created",
+    option.Summary("User created webhook"),
+    option.Response(202, nil),
+)
+
+r.AddWebhook("POST", "invoice.paid",
+    option.Summary("Invoice paid webhook"),
+    option.Response(202, nil),
+)
 ```
 
 ## Operation Options

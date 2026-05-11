@@ -71,7 +71,7 @@ Init(&Config{
 
     // Example capture from real responses
     CaptureExamples: true,
-    MaxExampleBytes: 0, // 0 → default cap of 16 384 bytes; set > 0 to override
+    MaxExampleBytes: 0, // 0 means no cap; set > 0 to cap example size
     Sanitizer: func(b []byte) []byte {
         // redact sensitive fields before attaching to the spec
         return b
@@ -124,7 +124,7 @@ Init(&Config{
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `CaptureExamples` | `bool` | `false` | Attach real request/response bodies as OpenAPI examples |
-| `MaxExampleBytes` | `int` | `0` (= 16 384) | Maximum size of a captured example body |
+| `MaxExampleBytes` | `int` | `0` | Maximum size of a captured example body (`0` = no cap) |
 | `Sanitizer` | `func([]byte) []byte` | `nil` | Transform body bytes before attaching (use to redact secrets) |
 
 ### Parallel

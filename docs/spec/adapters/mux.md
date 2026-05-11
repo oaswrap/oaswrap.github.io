@@ -2,19 +2,17 @@
 sidebar_position: 7
 ---
 
-# Gorilla Mux & HTTPRouter
-
-## Gorilla Mux
+# Gorilla Mux
 
 Integration with [gorilla/mux](https://github.com/gorilla/mux), a powerful HTTP router and URL matcher.
 
-### Installation
+## Installation
 
 ```bash
 go get github.com/oaswrap/spec/adapter/muxopenapi
 ```
 
-### Usage
+## Usage
 
 ```go
 package main
@@ -46,58 +44,21 @@ func main() {
 		option.Response(201, new(User)),
 	)
 
-	// Docs at /docs, spec at /docs/openapi.yaml
 	http.ListenAndServe(":8080", r)
 }
 ```
 
----
+## Path Parameters
 
-## HTTPRouter
-
-Integration with [julienschmidt/httprouter](https://github.com/julienschmidt/httprouter), a high-performance HTTP request router.
-
-### Installation
-
-```bash
-go get github.com/oaswrap/spec/adapter/httprouteropenapi
-```
-
-### Usage
+Gorilla Mux uses `{param}` style, which maps directly to OpenAPI:
 
 ```go
-package main
-
-import (
-	"net/http"
-
-	"github.com/julienschmidt/httprouter"
-	"github.com/oaswrap/spec/adapter/httprouteropenapi"
-	"github.com/oaswrap/spec/option"
-)
-
-func main() {
-	r := httprouter.New()
-
-	api := httprouteropenapi.NewRouter(r,
-		option.WithTitle("My API"),
-		option.WithVersion("1.0.0"),
-	)
-
-	api.Get("/users",
-		option.Summary("List users"),
-		option.Response(200, new([]User)),
-	)
-
-	api.Get("/users/:id",
-		option.Summary("Get user by ID"),
-		option.Request(new(GetUserRequest)),
-		option.Response(200, new(User)),
-	)
-
-	// Docs at /docs, spec at /docs/openapi.yaml
-	http.ListenAndServe(":8080", r)
+type GetUserRequest struct {
+    ID string `path:"id" required:"true"`
 }
-```
 
-HTTPRouter uses `:param` style. The adapter converts these to `{param}` for OpenAPI.
+api.Get("/users/{id}",
+    option.Request(new(GetUserRequest)),
+    option.Response(200, new(User)),
+)
+```

@@ -76,6 +76,29 @@ Parameter locations: `PathParam`, `QueryParam`, `HeaderParam`, `CookieParam`.
 
 Schema types: `String`, `Integer`, `Number`, `Boolean`, `Array`, `Object`.
 
+### Parameter options
+
+Use options to control required/explode/default/enum behavior:
+
+```go
+Parameter("ids", QueryParam, Array,
+    ParamRequired(false),
+    ParamExplode(true),
+)
+
+Parameter("status", QueryParam, String,
+    ParamEnum("active", "inactive"),
+    ParamDefault("active"),
+)
+```
+
+| Option | Description |
+|--------|-------------|
+| `ParamRequired(bool)` | Set explicit required/optional behavior |
+| `ParamExplode(bool)` | Set OpenAPI `explode` value |
+| `ParamEnum(...any)` | Constrain parameter values to enum |
+| `ParamDefault(any)` | Set default value |
+
 ### Typed query struct
 
 Map a struct to multiple query parameters at once using `query` struct tags:

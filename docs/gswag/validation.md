@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # Validation
 
-gswag can validate the generated spec for structural correctness and JSON Schema compliance against the OpenAPI 3.0 meta-schema.
+gswag can validate generated specs for structural correctness and common documentation quality issues.
 
 ## Validate the in-memory spec
 
@@ -15,7 +15,7 @@ for _, issue := range issues {
 }
 ```
 
-`ValidationIssue` carries a severity — `"error"` or `"warning"`. Errors indicate spec invalidity; warnings indicate style or completeness issues.
+`ValidationIssue` carries a severity of `"error"` or `"warning"`.
 
 ## Validate a spec file on disk
 
@@ -56,7 +56,6 @@ var _ = AfterSuite(func() {
 | `info.title` present | Required by the OpenAPI spec |
 | `info.version` present | Required by the OpenAPI spec |
 | Security scheme references resolve | Every `BearerAuth()` / `Security("name")` call must match a scheme declared in `Config.SecuritySchemes` |
-| JSON Schema validity | The serialised spec is validated against the OpenAPI 3.0 JSON meta-schema |
 
 ### Warnings (reported, not blocking)
 
