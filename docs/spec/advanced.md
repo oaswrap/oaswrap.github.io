@@ -83,4 +83,4 @@ type Product struct {
 }
 ```
 
-For the complete tag matrix, see `oaswrap/spec` [Reflection Tags](https://github.com/oaswrap/spec#reflection-tags).
+For the complete tag reference — naming tags, schema constraints, and XML tags — see [Parameters & Models](/docs/spec/parameters).

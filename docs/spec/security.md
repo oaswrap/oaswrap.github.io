@@ -78,3 +78,23 @@ r.Get("/data",
 | `SecurityOAuth2DeviceAuthorization(...)` | OAuth2 device authorization flow helper (OpenAPI 3.2) |
 | `SecurityOpenIDConnect(url)` | OpenID Connect scheme |
 | `SecurityMutualTLS()` | Mutual TLS scheme |
+
+## Registering Raw Security Scheme Components
+
+For advanced cases where the helper functions don't cover your scheme configuration, use `WithComponentSecurityScheme` to register an `*openapi.SecurityScheme` directly:
+
+```go
+r := spec.NewRouter(
+    option.WithComponentSecurityScheme("cookieAuth", &openapi.SecurityScheme{
+        Type: "apiKey",
+        In:   "cookie",
+        Name: "session_id",
+    }),
+)
+```
+
+Then reference the scheme by name in operations:
+
+```go
+r.Get("/profile", option.Security("cookieAuth"))
+```

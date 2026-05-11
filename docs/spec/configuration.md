@@ -46,11 +46,35 @@ r := spec.NewRouter(
 
 ```go
 r := spec.NewRouter(
-    option.WithTag("users", option.TagDescription("User operations")),
+    option.WithTag("users",
+        option.TagSummary("Users"),
+        option.TagDescription("User management operations"),
+    ),
     option.WithTag("admin",
         option.TagDescription("Admin operations"),
         option.TagExternalDocs("https://example.com/admin-docs"),
     ),
+)
+```
+
+Available tag options:
+
+| Option | Description |
+|--------|-------------|
+| `TagSummary(s)` | Short summary for the tag |
+| `TagDescription(s)` | Longer description |
+| `TagExternalDocs(url, desc...)` | Link to external documentation |
+| `TagParent(name)` | Set parent tag — OpenAPI 3.2 only |
+| `TagKind(kind)` | Set tag kind — OpenAPI 3.2 only |
+
+`TagParent` and `TagKind` are OpenAPI 3.2.0 extensions for organizing tags into hierarchies:
+
+```go
+r := spec.NewRouter(
+    option.WithOpenAPIVersion(openapi.Version320),
+    option.WithTag("users",        option.TagKind("group")),
+    option.WithTag("users.list",   option.TagParent("users"), option.TagDescription("List users")),
+    option.WithTag("users.create", option.TagParent("users"), option.TagDescription("Create user")),
 )
 ```
 
@@ -111,7 +135,7 @@ option.WithStripTrailingSlash()
 | `WithLicense(l)` | Set license information |
 | `WithTermsOfService(url)` | Set terms of service URL |
 | `WithExternalDocs(url, desc...)` | Set external documentation |
-| `WithTag(name, ...opts)` / `WithTags(...tags)` | Define global tags |
+| `WithTag(name, ...opts)` / `WithTags(...tags)` | Define global tags (`TagSummary`, `TagDescription`, `TagExternalDocs`, `TagParent`, `TagKind`) |
 | `WithServer(url, ...opts)` | Add a server |
 | `WithSecurity(name, ...opts)` | Define a reusable security scheme |
 | `WithGlobalSecurity(name, scopes...)` | Add global security requirement |

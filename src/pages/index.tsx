@@ -111,7 +111,7 @@ const ecoPackages = [
       </svg>
     ),
     title: 'OpenAPI builder',
-    desc: 'Build OpenAPI 3.x specs in pure Go. Code-first, type-safe, framework-agnostic.',
+    desc: 'Build OpenAPI 3.x and 3.2 specs in pure Go. Code-first, type-safe, 9 framework adapters.',
     href: '/docs/spec/introduction',
   },
   {
@@ -176,7 +176,7 @@ const features = [
       </svg>
     ),
     title: 'Code-first spec generation',
-    body: 'Build OpenAPI 3.x specs in pure Go with full type safety. Works with any framework or standalone for CI/CD pipelines.',
+    body: 'Build OpenAPI 3.x and 3.2 specs in pure Go with full type safety. chi, gin, echo, fiber, iris, net/http, gorilla/mux — or standalone for CI/CD.',
     href: '/docs/spec/introduction',
   },
   {
@@ -201,6 +201,18 @@ const features = [
     title: 'Multiple UI providers',
     body: 'Swagger UI, Stoplight, ReDoc, Scalar, or RapiDoc. Switch providers by changing a single import. CDN or air-gapped.',
     href: '/docs/spec-ui/introduction',
+  },
+  {
+    num: '04',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 2L3 5v5c0 3.55 2.57 6.87 6 7.67C12.43 16.87 15 13.55 15 10V5L9 2z" stroke="#0891b2" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M6.5 9l2 2 3-3" stroke="#0891b2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    title: 'Built-in spec validation',
+    body: 'Error, Warning, and Info severity levels. Catch missing fields, invalid references, and best-practice violations before deployment.',
+    href: '/docs/spec/advanced',
   },
 ];
 

@@ -105,13 +105,15 @@ Map a struct to multiple query parameters at once using `query` struct tags:
 
 ```go
 type ListQuery struct {
-    Search string `query:"search"`
-    Page   int    `query:"page"`
-    Limit  int    `query:"limit"`
+    Search string `query:"search" description:"Search term"`
+    Page   int    `query:"page"   minimum:"1" default:"1"`
+    Limit  int    `query:"limit"  minimum:"1" maximum:"100" default:"20"`
 }
 
 QueryParamStruct(new(ListQuery))
 ```
+
+All schema constraint tags (`required`, `description`, `format`, `minimum`, `maximum`, `enum`, `default`, `example`, etc.) work on query struct fields. See [Parameters & Models](/docs/spec/parameters) for the full tag reference.
 
 ## Request body
 
@@ -121,6 +123,18 @@ Post("Create user", func() {
     ...
 })
 ```
+
+Body model fields are reflected using the same struct tag system as the `spec` library — `json` for field names, plus schema constraint tags:
+
+```go
+type CreateUserRequest struct {
+    Name  string `json:"name"  required:"true" minLength:"1" maxLength:"100"`
+    Email string `json:"email" required:"true" format:"email"`
+    Age   int    `json:"age"   minimum:"18"`
+}
+```
+
+See [Parameters & Models](/docs/spec/parameters) for the full tag reference.
 
 By default the content type is `application/json`. Override with `Consumes`:
 

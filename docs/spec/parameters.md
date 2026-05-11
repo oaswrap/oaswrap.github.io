@@ -8,7 +8,7 @@ Define request and response models using Go structs. Parameters are declared usi
 
 ## Request Body
 
-Use `option.Request()` to set the request body model:
+Use `option.Request()` to set the request body model. The `json` tag controls the field name in the serialized body:
 
 ```go
 type CreateUserRequest struct {
@@ -20,6 +20,19 @@ r.Post("/users",
     option.Summary("Create user"),
     option.Request(new(CreateUserRequest)),
     option.Response(201, new(User)),
+)
+```
+
+For `application/x-www-form-urlencoded` or `multipart/form-data` bodies, use the `form` tag:
+
+```go
+type UploadRequest struct {
+    File  string `form:"file"  required:"true"`
+    Label string `form:"label"`
+}
+
+r.Post("/upload",
+    option.Request(new(UploadRequest), option.ContentType("multipart/form-data")),
 )
 ```
 
@@ -110,25 +123,64 @@ type CreateUserRequest struct {
 }
 ```
 
-Common schema tags:
+### Naming tags
+
+| Tag | Applies to | Description |
+|-----|-----------|-------------|
+| `json:"name"` | body fields | Field name in JSON request/response body |
+| `form:"name"` | body fields | Field name in form-encoded or multipart body |
+| `query:"name"` | query params | Field name as a query parameter |
+| `path:"name"` | path params | Field name as a path parameter |
+| `header:"name"` | header params | Field name as a request header |
+| `querystring:"name"` | OAS 3.2 | Whole-struct as a querystring parameter |
+
+Use `json:"-"` to exclude a field from any schema. Any field with `json:"-"` is also excluded from non-JSON schemes.
+
+### Schema constraint tags
+
+| Tag | Type | Description |
+|-----|------|-------------|
+| `required:"true"` | bool | Mark field as required |
+| `type:"string"` | string | Override inferred type (supports comma-separated types in OAS 3.1+) |
+| `title:"..."` | string | Schema title |
+| `description:"..."` | string | Field description |
+| `format:"email"` | string | OpenAPI format (`email`, `uri`, `date-time`, `uuid`, etc.) |
+| `default:"..."` | any | Default value (parsed as JSON, then bool/int/float/string) |
+| `example:"..."` | any | Example value |
+| `examples:"[...]"` | JSON array | Multiple examples — OAS 3.1+ only |
+| `enum:"a,b,c"` | list | Allowed values (comma-separated or JSON array) |
+| `const:"v"` | any | Constant value — OAS 3.1+ only |
+| `pattern:"..."` | string | Regex pattern |
+| `minLength:"n"` | int | Minimum string length |
+| `maxLength:"n"` | int | Maximum string length |
+| `minimum:"n"` | float | Minimum numeric value |
+| `maximum:"n"` | float | Maximum numeric value |
+| `exclusiveMinimum:"n"` | float/bool | Exclusive lower bound (bool in OAS 3.0, number in OAS 3.1+) |
+| `exclusiveMaximum:"n"` | float/bool | Exclusive upper bound (bool in OAS 3.0, number in OAS 3.1+) |
+| `multipleOf:"n"` | float | Value must be a multiple of n |
+| `minItems:"n"` | int | Minimum array items |
+| `maxItems:"n"` | int | Maximum array items |
+| `uniqueItems:"true"` | bool | Array items must be unique |
+| `minProperties:"n"` | int | Minimum object properties |
+| `maxProperties:"n"` | int | Maximum object properties |
+| `nullable:"true"` | bool | Allow null — OAS 3.0 only (use `type:"t,null"` in OAS 3.1+) |
+| `readOnly:"true"` | bool | Field appears only in responses |
+| `writeOnly:"true"` | bool | Field appears only in requests |
+| `deprecated:"true"` | bool | Mark field as deprecated |
+| `contentEncoding:"..."` | string | Binary encoding hint (`base64`, etc.) — OAS 3.1+ only |
+| `contentMediaType:"..."` | string | Media type of string content — OAS 3.1+ only |
+| `mediaType:"..."` | string | Media type for querystring parameter content |
+
+### XML tags
 
 | Tag | Description |
 |-----|-------------|
-| `required:"true"` | Mark field as required |
-| `description:"..."` | Field description |
-| `format:"email"` | OpenAPI format (email, uri, date-time, etc.) |
-| `minimum:"n"` | Minimum value for numbers |
-| `maximum:"n"` | Maximum value for numbers |
-| `minLength:"n"` | Minimum string length |
-| `maxLength:"n"` | Maximum string length |
-| `minItems:"n"` | Minimum array items |
-| `maxItems:"n"` | Maximum array items |
-| `enum:"a,b,c"` | Allowed values |
-| `pattern:"..."` | Regex pattern |
-| `default:"..."` | Default value |
-| `example:"..."` | Example value |
-
-For the complete list of supported reflection tags, see the `oaswrap/spec` [Reflection Tags reference](https://github.com/oaswrap/spec#reflection-tags).
+| `xmlName:"..."` | XML element name |
+| `xmlNamespace:"..."` | XML namespace URI |
+| `xmlPrefix:"..."` | XML namespace prefix |
+| `xmlAttribute:"true"` | Render as XML attribute instead of element |
+| `xmlWrapped:"true"` | Wrap array items in a parent element |
+| `xmlNodeType:"..."` | XML node type — OAS 3.2 only (`attribute`, `element`) |
 
 ## Generic Response Types
 
