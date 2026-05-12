@@ -139,11 +139,15 @@ option.WithStripTrailingSlash()
 | `WithServer(url, ...opts)` | Add a server |
 | `WithSecurity(name, ...opts)` | Define a reusable security scheme |
 | `WithGlobalSecurity(name, scopes...)` | Add global security requirement |
-| `WithReflectorConfig(...opts)` | Customize reflection behavior |
+| `WithReflectorConfig(...opts)` | Customize reflection behavior (see Advanced Features for reflector hooks and parameter tag mapping) |
 | `WithStripTrailingSlash()` | Remove trailing slashes from operation paths |
 | `WithPathParser(parser)` | Convert framework path syntax to OpenAPI path templates |
 | `WithDocument(fn)` | Apply low-level document customization before serialization |
 | `WithComponentSchema/Response/Parameter/...` | Register reusable components directly |
-| `WithDisableDocs()` | Disable adapter docs endpoints |
+| `WithCacheAge(n)` | Set Cache-Control age for spec responses |
+| `WithUIOption(opt)` | Set a custom spec-ui provider option |
 | `WithDocsPath(path)` | Set adapter docs UI path |
 | `WithSpecPath(path)` | Set adapter spec endpoint path |
+| `WithDisableDocs()` | Disable adapter docs endpoints |
+| `WithLogger(logger)` | Set a custom slog.Logger for internal debug logs (pass nil to use slog.Default()) |
+| `WithDebugLogger()` | Enable debug-level logging to stderr (convenience helper) |

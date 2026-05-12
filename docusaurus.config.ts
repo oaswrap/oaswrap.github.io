@@ -183,7 +183,7 @@ const config: Config = {
         {
           type: 'html',
           position: 'right',
-          value: '<span class="nav-version-badge">spec v0.5.0</span>',
+          value: '<span class="nav-version-badge">spec v0.5.1</span>',
         },
         {
           href: 'https://github.com/oaswrap',

@@ -136,6 +136,30 @@ type CreateUserRequest struct {
 
 Use `json:"-"` to exclude a field from any schema. Any field with `json:"-"` is also excluded from non-JSON schemes.
 
+### Overriding tag sources
+
+The reflector supports overriding which struct tag is used for a particular parameter location. Use `option.ParameterTagMapping` (via `option.WithReflectorConfig`) to change the tag source for `path`, `query`, `header`, and now also `body` and `form` parameters.
+
+Example (use `uri` tags for path parameters and `form` tags for form bodies):
+
+```go
+r := spec.NewRouter(
+    option.WithReflectorConfig(
+        option.ParameterTagMapping(openapi.ParameterInPath, "uri"),
+        option.ParameterTagMapping(openapi.ParameterInForm, "form"),
+    ),
+)
+```
+
+This is useful when your framework uses different tag names (e.g., `uri`, `form`) than the defaults (`json`, `form`).
+
+### Embedded struct referencing and `refer:"true"`
+
+By default embedded structs are inlined into the parent schema. To preserve them as component references (using `allOf: [{"$ref": "..."}]`), implement the `EmbedReferencer` interface or annotate the embedded field with `refer:"true"`.
+
+This keeps component reuse and makes generated schemas easier to read and maintain.
+
+
 ### Schema constraint tags
 
 | Tag | Type | Description |

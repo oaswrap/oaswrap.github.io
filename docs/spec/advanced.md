@@ -84,3 +84,39 @@ type Product struct {
 ```
 
 For the complete tag reference — naming tags, schema constraints, and XML tags — see [Parameters & Models](/docs/spec/parameters).
+
+## Reflection hooks and customization
+
+The reflector exposes several hooks to customize how Go types map to OpenAPI schemas. Use `option.WithReflectorConfig(...)` to pass these options.
+
+- InterceptSchema(fn) — run a callback for each reflected type to override or replace the generated schema.
+- InterceptProp(fn) — run a callback for each struct field/property to customize its schema or metadata.
+- RequiredPropByValidateTag() — convenience hook to mark fields as required when a `validate:"..."` tag contains `required`.
+
+Example:
+
+```go
+r := spec.NewRouter(
+    option.WithReflectorConfig(
+        option.InterceptSchema(func(p openapi.InterceptSchemaParams) (bool, error) { /*...*/ }),
+        option.RequiredPropByValidateTag(),
+    ),
+)
+```
+
+Hooks are chained when multiple callbacks are provided. See the `option` package for exact helper names and behavior.
+
+## Schema name prefixes and package qualification
+
+To avoid cross-package collisions, default component definition names now include the Go package name as a prefix (for example `models.User` → `ModelsUser`). Use `option.StripDefNamePrefix(...)` or `option.InterceptDefName(...)` to control or remove the prefix.
+
+## Content-type detection and marshaler support
+
+- When a content type is not explicitly provided via `option.ContentType(...)`, the reflector now attempts to infer the media type from Go types (e.g., `string` with `mediaType` tags, or types implementing text marshaling).
+- Types implementing `encoding.TextMarshaler` and `encoding.TextUnmarshaler` (but not `json.Marshaler`) are reflected as `type: string`.
+
+## Embedded struct referencing
+
+Embedded structs can opt into being represented as `allOf: [ { "$ref": "..." } ]` instead of being inlined by implementing `EmbedReferencer` or using the `refer:"true"` struct tag on the embedded field. This helps preserve schema reuse and cleaner component references.
+
+
